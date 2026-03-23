@@ -39,12 +39,7 @@ public class UserServiceImp implements UserService {
 
    @Override
    public User getUserByCar(String model, int series) {
-      String hql = "SELECT u FROM User u JOIN u.car c WHERE c.model = :model AND c.series = :series";
-
-      Query query = session.createQuery(hql)
-              .setParameter("model", model)
-              .setParameter("series", series);
-      return (User) query.getSingleResult();
+      return userDao.getUserByCar(model, series);
    }
 
 }

@@ -15,20 +15,30 @@ import java.util.List;
 @Repository
 public class UserDaoImp implements UserDao {
 
-   @PersistenceContext
-   private Session session;
+    @PersistenceContext
+    private Session session;
 
 
-   @Override
-   public void add(User user) {
-      session.save(user);
-   }
+    @Override
+    public void add(User user) {
+        session.save(user);
+    }
 
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<User> listUsers() {
-      TypedQuery<User> query=session.createQuery("from User");
-      return query.getResultList();
-   }
+    @Override
+    public User getUserByCar(String model, int series) {
+        String hql = "SELECT u FROM User u JOIN u.car c WHERE c.model = :model AND c.series = :series";
+
+        return session.createQuery(hql, User.class)
+                .setParameter("model", model)
+                .setParameter("series", series)
+                .getSingleResult();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<User> listUsers() {
+        TypedQuery<User> query = session.createQuery("from User");
+        return query.getResultList();
+    }
 
 }
