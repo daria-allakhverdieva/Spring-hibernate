@@ -14,7 +14,6 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserServiceImp implements UserService {
 
    private final UserDao userDao;
@@ -28,16 +27,19 @@ public class UserServiceImp implements UserService {
    }
 
    @Override
+   @Transactional
    public void add(User user) {
       userDao.add(user);
    }
 
    @Override
+   @Transactional(readOnly = true)
    public List<User> listUsers() {
       return userDao.listUsers();
    }
 
    @Override
+   @Transactional(readOnly = true)
    public User getUserByCar(String model, int series) {
       return userDao.getUserByCar(model, series);
    }
