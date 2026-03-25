@@ -18,9 +18,6 @@ public class UserServiceImp implements UserService {
 
    private final UserDao userDao;
 
-   @PersistenceContext
-   private Session session;
-
    @Autowired
    public UserServiceImp (UserDao userDao) {
       this.userDao = userDao;
