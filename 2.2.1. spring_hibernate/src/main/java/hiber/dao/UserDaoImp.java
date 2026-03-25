@@ -19,13 +19,11 @@ public class UserDaoImp implements UserDao {
     private Session session;
 
     @Override
-    @Transactional
     public void add(User user) {
         session.save(user);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User getUserByCar(String model, int series) {
         String hql = "SELECT u FROM User u JOIN u.car c WHERE c.model = :model AND c.series = :series";
 
@@ -36,7 +34,6 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
         TypedQuery<User> query = session.createQuery("from User");
